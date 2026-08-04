@@ -4,9 +4,7 @@ const { getAllProducts , createProduct, updateProduct, deleteProduct, getProduct
 
 const router = express.Router();
 
-app.get("/", (req, res) => {
-    res.send("API is working");
-});
+
 
 router.route("/products").get(getAllProducts)
 router.route("/product/new").post(createProduct);
