@@ -2,6 +2,7 @@ const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncError");
 const ApiFeatures = require("../utils/apifeatures");
+const sendToken = require("../utils/jwtToke");
 
 
 
@@ -101,4 +102,39 @@ exports.deleteProduct = catchAsyncErrors(
         success: true,
         message: "Product deleted successfully"
     });
+})
+
+
+// Create New Review or update the review
+exports.createProductReview = catchAsyncErrors(async (req , res, next)=>{
+    const {rating , comment , productId} = req.body;
+
+    const review = {
+        user: req.user._id,
+        name:req.user.name,
+        rating: Number(rating),
+        comment,
+    };
+
+    const product = await Product.findById(productId);
+    const isReviewed = product.reviews.find(rev => rev.user.toString() === req.user._id)
+    if(isReviewed){
+        product.reviews.forEach(rev =>{
+            rev.rating = rating,
+            rev.comment = comment
+        })
+
+    }else{
+        product.reviews.push(review)
+        product.numOfReviews = product.reviews.length
+    }
+    let avg = 0;
+    product.ratings = product.reviews.forEach(rev=>{
+        avg = avg + rev.rating
+    })/product.reviews.length;
+
+    await product.save({validateBeforeSave : false})
+
+    sendToken(user, 200 , res)
+
 })
