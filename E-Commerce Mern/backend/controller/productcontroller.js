@@ -63,7 +63,7 @@ exports.updateProduct =catchAsyncErrors(
     });
 })
 
-//  get product detais
+//  get product details
 exports.getProductDetail = catchAsyncErrors(
      async (req , res , next) =>{
     const product = await Product.findById(req.params.id);
@@ -173,7 +173,7 @@ exports.deleteReview = catchAsyncErrors(async (req, res , next)=>{
 
    const numOfReviews = reviews.length;
 
-   await product.findByIdAndUpdate(req.query.prodcutId,{
+   await product.findByIdAndUpdate(req.query.productId,{
     reviews,
     ratings,
     numOfReviews,

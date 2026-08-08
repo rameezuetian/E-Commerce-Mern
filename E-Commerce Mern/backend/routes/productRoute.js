@@ -1,5 +1,5 @@
 const express = require("express");
-const { getAllProducts , createProduct, updateProduct, deleteProduct, getProductDetail, createProductReview, getProductReviews, deleteReview} = require("../controller/product.controller");
+const { getAllProducts , createProduct, updateProduct, deleteProduct, getProductDetail, createProductReview, getProductReviews, deleteReview} = require("../controller/productcontroller");
 const { isAuthenticatedUSer , authorizeRoles} = require("../middleware/auth");
 
 
