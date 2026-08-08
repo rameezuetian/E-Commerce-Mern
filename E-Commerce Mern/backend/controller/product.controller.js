@@ -138,3 +138,53 @@ exports.createProductReview = catchAsyncErrors(async (req , res, next)=>{
     sendToken(user, 200 , res)
 
 })
+
+//  GEt all the reviews of a product
+exports.getProductReviews = catchAsyncErrors( async (req , res , next)=>{
+    const product = await Product.findById(req.body.id);
+
+    if(!product){
+        return next(new ErrorHandler("Product not found" ,404));
+    }
+
+    res.status(200).json({
+        success:true,
+        reviews:product.reviews,
+    })
+})
+
+
+// Delete Review
+exports.deleteReview = catchAsyncErrors(async (req, res , next)=>{
+    const product = await Product.findById(req.query.id);
+    
+    if(!product){
+        return next(new ErrorHandler("Product not found" ,404));
+    }
+    const reviews = product.reviews.filter(rev=> rev._id.toString() !== req.query.id.toString())
+
+
+    let avg = 0;
+   reviews.forEach((rev)=>{
+        avg +=rev.rating
+    });
+
+   const ratings = avg / product.reviews.length;
+
+   const numOfReviews = reviews.length;
+
+   await product.findByIdAndUpdate(req.query.prodcutId,{
+    reviews,
+    ratings,
+    numOfReviews,
+   },{
+    new : true,
+    runValidators : true,
+    useFindAndModify:false,
+   })
+
+    res.status(200).json({
+        success:true
+    })
+
+})
