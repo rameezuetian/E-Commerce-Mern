@@ -60,6 +60,14 @@ E-Commerce Mern/
 └── README.md
 ```
 
+## Prerequisites
+
+Before running this project, make sure you have:
+
+- Node.js installed
+- MongoDB running locally or a MongoDB connection URI
+- A mail service configured for password reset emails
+
 
 ## Installation
 
