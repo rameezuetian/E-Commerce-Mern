@@ -83,23 +83,7 @@ cd "E-Commerce Mern/backend"
 npm install
 ```
 
-3. Create or update the environment file:
 
-The app reads variables from `backend/config/config.env`.
-
-Example:
-
-```env
-PORT=5000
-DB_URI=mongodb://127.0.0.1:27017/Ecommerce
-JWT_SECRET=your_secret_key
-JWT_EXPIRE=5d
-COOKIE_EXPIRE=5
-SMPT_SERVICE=gmail
-SMPT_MAIL=your_email@gmail.com
-SMPT_PASSWORD=your_app_password
-SMPT_HOST=smtp.gmail.com
-SMPT_PORT=434
 ```
 
 ## Run the application
